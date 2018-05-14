@@ -8,75 +8,63 @@ using namespace std;
 
 int main(){
 
-	ofstream myFileI ("out.txt");
-	vector< vector<int> > vec;
-	bool field[1000][1000] = {0};
-	if( myFileI.is_open() )
-        {
-	cout<<"Ready"<<endl;
-        }
-	int iter = 1;
-	cout<<"Length?"<<endl;
-	int n;
-	cin>>n;
-        srand((unsigned)time(0));
-		int number = 1;
-		int last_x = 0, last_y = 0;
+        int n;
+        cin>>n;
+		int field[1000][1000] = {0};
+		srand((unsigned)time(0));
+		field[500][500] = 1;
+		int number = 2;
+		int last_x = 500, last_y = 500;
+		float av_x = 500, av_y = 500;
+        vector < vector<int> > baze;
         vector <int> temp;
-        while(number <= n){
-		int random = (rand()%4)+1;
-        int type = (rand()%2)+1;
-                if(number == 1){
-                    temp.push_back(last_x);
-                    temp.push_back(last_y);
-                    temp.push_back(type);
-                    vec.push_back(temp);
-                    temp.clear();
-                    number ++;
-                    continue;
-                }
-				if(random == 1 && field[last_x][last_y+1] == 0){
-					field[last_x][last_y+1] = 1;
-					last_y += 1;
-					number ++;
-					temp.push_back(last_x);
-					temp.push_back(last_y);
-					temp.push_back(type);
-				}
-				if(random == 2 && field[last_x][last_y+1] == 0){
-					field[last_x+1][last_y] = 1;
-					last_x += 1;
-					number ++;
-					temp.push_back(last_x);
-                    temp.push_back(last_y);
-                    temp.push_back(type);
-				}
-				if(random == 3 && field[last_x][last_y+1] == 0){
-					field[last_x][last_y-1] = 1;
-					last_y -= 1;
-					number ++;
-					temp.push_back(last_x);
-                    temp.push_back(last_y);
-                    temp.push_back(type);
-				}
-				if(random == 4 && field[last_x][last_y+1] == 0){
-					field[last_x-1][last_y] = 1;
-					last_x -= 1;
-					number ++;
-					temp.push_back(last_x);
-                    temp.push_back(last_y);
-                    temp.push_back(type);
-				}
-			vec.push_back(temp);
-            temp.clear();
+		while(number <= n){
+			int random = (rand()%4)+1;
+            int type = (rand()%2)+1;
+			if(random == 1 && field[last_x][last_y+1] == 0){
+				field[last_x][last_y+1] = number;
+				last_y += 1;
+				number ++;
+                temp.push_back(last_x);
+                temp.push_back(last_y);
+                temp.push_back(type);
+//				continue;
 			}
-	for(int i=0;i<vec.size();i++){
-		for(int y=0;y<=vec[i].size()-1;y++){
-		cout<< vec[i][y] << " ";
+			if(random == 2 && field[last_x+1][last_y] == 0){
+				field[last_x+1][last_y] = number;
+				last_x += 1;
+				number ++;
+//				continue;
+			}
+			if(random == 3 && field[last_x][last_y-1] == 0){
+				field[last_x][last_y-1] = number;
+				last_y -= 1;
+				number ++;
+//				continue;
+			}
+			if(random == 4 && field[last_x-1][last_y] == 0){
+				field[last_x-1][last_y] = number;
+				last_x -= 1;
+				number ++;
+//				continue;
+			}
+            baze.push_back(temp);
+            temp.clear();
 		}
-        cout<<endl;
-    }
-	
-	myFileI.close();
+
+/*		for(int y=490;y<=510;y++){
+			for(int i=490;i<510;i++){
+				cout<<field[i][y]<<" ";
+			}
+			cout<<endl;
+		}
+*/
+        for(int y=0;y<baze.size();y++){
+			for(int i=0;i<baze[y].size();i++){
+				cout<<baze[y][i]-500<<" ";
+			}
+			cout<<endl;
+		}
+    
 	return 0;
 }
