@@ -32,6 +32,7 @@ int main(){
                     temp.push_back(type);
                     vec.push_back(temp);
                     temp.clear();
+                    number ++;
                     continue;
                 }
 				if(random == 1 && field[last_x][last_y+1] == 0){
@@ -69,7 +70,7 @@ int main(){
 			vec.push_back(temp);
             temp.clear();
 			}
-	for(int i=0;i<vec.size()-1;i++){
+	for(int i=0;i<vec.size();i++){
 		for(int y=0;y<=vec[i].size()-1;y++){
 		cout<< vec[i][y] << " ";
 		}
